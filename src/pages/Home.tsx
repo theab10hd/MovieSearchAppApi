@@ -69,7 +69,7 @@ const Home = () => {
   }, [isOpen]);
 
   return (
-    <div className="bg-gradient-to-b from-[var(--dark)] to-[var(--light-dark)] overflow-x-hidden">
+    <div className="min-h-screen relative bg-gradient-to-b from-[var(--dark)] to-[var(--light-dark)] overflow-x-hidden">
       {isOpen && selectedMovie && (
         <div className="fixed z-50">
           <MovieBox
@@ -79,10 +79,9 @@ const Home = () => {
           />
         </div>
       )}
-
-      <section className="sm:min-h-100 flex justify-center items-center flex-col">
+      <section className="sm:min-h-100 mt-16 md:mt-0 flex justify-center items-center flex-col">
         <Hero />
-        <section className="min-h-10 w-screen flex justify-center items-center gap-2 sm:gap-4 p-5 md:px-20 md:py-2 mx-auto">
+        <section className="min-h-10 w-screen flex flex-col md:flex-row justify-center items-center gap-2 sm:gap-4 p-5 md:px-20 md:py-2 mx-auto">
           <input
             type="text"
             placeholder="Search movies here..."
@@ -101,11 +100,10 @@ const Home = () => {
                 : "bg-gradient-to-b from-green-400 to-green-600 rounded-md"
             } px-4 py-3 sm:px-6 sm:py-4 text-white hover:scale-103 duration-300 ease-in-out`}
           >
-            Popular
+            Popular Movies
           </button>
         </section>
       </section>
-
       <h1 className="text-gray-300 text-xl text-center mb-4 tracking-wider">
         {query
           ? movies.length === 0
@@ -113,7 +111,6 @@ const Home = () => {
             : "Search Results"
           : null}
       </h1>
-
       <div className="p-5 md:px-20 md:py-2 mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
         {movies.map((movie) => (
           <Card
@@ -124,8 +121,9 @@ const Home = () => {
           />
         ))}
       </div>
-
-      <Footer />
+      <div className="sticky top-full left-0">
+        <Footer />
+      </div>
     </div>
   );
 };

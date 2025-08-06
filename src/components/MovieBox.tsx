@@ -65,26 +65,28 @@ const MovieBox = ({ setIsOpen, selectedMovie, setSelectedMovie }: Props) => {
             id="text"
             className="flex h-full w-full flex-col justify-end items-start gap-2"
           >
-            <h1 className="text-6xl text-white font-bold">
+            <h1 className="text-2xl sm:text-4xl lg:text-6xl text-white font-bold">
               {selectedMovie.title}
             </h1>
-            <p className="text-gray-200 lg:max-w-1/2 text-pretty">
+            <p className="text-gray-200 xl:max-w-2/3 text-pretty text-sm md:text-md 2xl:text-lg">
               {selectedMovie.overview}
             </p>
             <div className="text-gray-200 ">
-              <p className="text-yellow-400 text-sm">
+              <p className="text-yellow-400 text-sm md:text-lg">
                 <i className="fa-solid fa-star me-2"></i>
                 {selectedMovie.vote_average} / {selectedMovie.vote_count}
               </p>
-              <p>
+              <p className="text-sm md:text-lg">
                 <i className="fa-solid fa-calendar-days me-2 "></i>
                 {selectedMovie.release_date}
               </p>
-              <p>
+              <p className="text-sm md:text-lg">
                 <i className="fa-solid fa-globe me-2"></i>
                 {selectedMovie.original_language}
               </p>
-              <p>{selectedMovie.adult ? "18+" : "No Restrictions"}</p>
+              <p className="text-sm md:text-lg">
+                {selectedMovie.adult ? "18+" : "No Restrictions"}
+              </p>
             </div>
           </div>
         </div>

@@ -25,7 +25,7 @@ const Card = ({ movie, setIsOpen, onSelectMovie }: CardProps) => {
         />
         <div className="absolute top-0 left-0 bg-gradient-to-b from-black/0 to-black w-full h-full">
           <div className="absolute bottom-0 sm:left-1/2 sm:bottom-1/12 sm:-translate-x-1/2 w-full p-2 flex flex-col justify-center items-center text-center">
-            <h1 className="text-white font-medium text-pretty uppercase text-3xl">
+            <h1 className="text-white font-medium text-pretty uppercase text-xl sm:text-2xl md:text-3xl">
               {movie.title}
             </h1>
             <p className="text-yellow-400 text-sm">
