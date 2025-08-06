@@ -79,12 +79,12 @@ const Home = () => {
       )}
       <section className="sm:min-h-100 mt-16 md:mt-0 flex justify-center items-center flex-col">
         <Hero />
-        <section className="min-h-10 w-screen flex flex-col md:flex-row justify-center items-center gap-2 sm:gap-4 p-5 md:px-20 md:py-2 mx-auto">
+        <section className=" w-screen flex flex-col md:flex-row justify-center items-center gap-2 sm:gap-4 p-5 md:px-20 md:py-2 mx-auto">
           <input
             type="text"
             placeholder="Search movies here..."
             value={query}
-            className="bg-gray-300 px-4 py-3 sm:px-6 sm:py-4 rounded-md w-full md:w-100 lg:w-150 outline-none"
+            className="bg-gray-300 px-4 py-3 sm:px-6 sm:py-4 rounded-md w-full sm:w-100 lg:w-150 outline-none"
             onChange={(e) => setQuery(e.target.value)}
           />
         </section>
