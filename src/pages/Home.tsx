@@ -15,7 +15,6 @@ const Home = () => {
     null
   );
   const [query, setQuery] = useState("");
-  const [isPopular, setIsPopular] = useState(true);
 
   const fetchMovies = async () => {
     try {
@@ -32,7 +31,6 @@ const Home = () => {
       if (!response.ok) throw new Error("Failed to fetch movies");
       const data = await response.json();
       setMovies(data.results);
-      setIsPopular(query.trim() === "");
     } catch (error) {
       console.error(error);
     }
@@ -89,19 +87,6 @@ const Home = () => {
             className="bg-gray-300 px-4 py-3 sm:px-6 sm:py-4 rounded-md w-full md:w-100 lg:w-150 outline-none"
             onChange={(e) => setQuery(e.target.value)}
           />
-          <button
-            onClick={() => {
-              setQuery("");
-              setIsPopular(true);
-            }}
-            className={`cursor-pointer ${
-              isPopular
-                ? "bg-gray-900 outline-2 outline-green-600 rounded-2xl"
-                : "bg-gradient-to-b from-green-400 to-green-600 rounded-md"
-            } px-4 py-3 sm:px-6 sm:py-4 text-white hover:scale-103 duration-300 ease-in-out`}
-          >
-            Popular Movies
-          </button>
         </section>
       </section>
       <h1 className="text-gray-300 text-xl text-center mb-4 tracking-wider">
@@ -109,9 +94,9 @@ const Home = () => {
           ? movies.length === 0
             ? "No Results Found"
             : "Search Results"
-          : null}
+          : "Latest movies"}
       </h1>
-      <div className="p-5 md:px-20 md:py-2 mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+      <div className="p-5 md:px-20 md:py-2 mx-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
         {movies.map((movie) => (
           <Card
             key={movie.id}

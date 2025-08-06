@@ -11,7 +11,7 @@ const Card = ({ movie, setIsOpen, onSelectMovie }: CardProps) => {
 
   return (
     <div
-      className="h-80 sm:h-full w-full rounded-2xl bg-gradient-to-b from-gray-100 to-gray-400 outline-2 outline-[var(--blue)] overflow-hidden duration-300 ease-in-out hover:scale-102 hover:shadow-lg shadow-black cursor-pointer"
+      className="h-full w-full rounded-2xl bg-gradient-to-b from-gray-100 to-gray-400 outline-2 outline-[var(--blue)] overflow-hidden duration-300 ease-in-out hover:scale-102 hover:shadow-lg shadow-black cursor-pointer"
       onClick={() => {
         setIsOpen(true);
         onSelectMovie(movie.id);
