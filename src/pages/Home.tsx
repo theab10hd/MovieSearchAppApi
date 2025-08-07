@@ -5,12 +5,12 @@ import Hero from "../components/Hero";
 import MovieBox from "../components/MovieBox";
 import Footer from "../components/Footer";
 import type { Movie, SelectedMovie } from "../types";
-
 const apiKey = "c6ddc0150b79e8525ead7398f143394b";
 
 const Home = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isLoaded, setLoaded] = useState<boolean>(false);
   const [selectedMovie, setSelectedMovie] = useState<SelectedMovie | null>(
     null
   );
@@ -22,6 +22,7 @@ const Home = () => {
       if (query.trim() === "") {
         url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`;
       } else {
+        setLoaded(false);
         url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(
           query
         )}`;
@@ -31,6 +32,7 @@ const Home = () => {
       if (!response.ok) throw new Error("Failed to fetch movies");
       const data = await response.json();
       setMovies(data.results);
+      setLoaded(true);
     } catch (error) {
       console.error(error);
     }
@@ -44,6 +46,7 @@ const Home = () => {
       if (!response.ok) throw new Error("Failed to fetch movie details");
       const data: SelectedMovie = await response.json();
       setSelectedMovie(data);
+      setLoaded(true);
     } catch (error) {
       console.error(error);
     }
@@ -94,18 +97,26 @@ const Home = () => {
           ? movies.length === 0
             ? "No Results Found"
             : "Search Results"
-          : "Latest movies"}
+          : "Populars movies"}
       </h1>
-      <div className="p-5 md:px-20 md:py-2 mx-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-        {movies.map((movie) => (
-          <Card
-            key={movie.id}
-            movie={movie}
-            setIsOpen={setIsOpen}
-            onSelectMovie={fetchMovieDetails}
-          />
-        ))}
-      </div>
+      {/* Movie Cards */}
+      {isLoaded ? (
+        <div className="p-5 md:px-20 md:py-2 mx-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+          {movies.map((movie) => (
+            <Card
+              key={movie.id}
+              movie={movie}
+              setIsOpen={setIsOpen}
+              onSelectMovie={fetchMovieDetails}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="flex justify-center items-center w-full">
+          <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      )}
+
       <div className="sticky top-full left-0">
         <Footer />
       </div>

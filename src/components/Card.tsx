@@ -30,7 +30,7 @@ const Card = ({ movie, setIsOpen, onSelectMovie }: CardProps) => {
             </h1>
             <p className="text-yellow-400 text-sm">
               <i className="fa-solid fa-star me-2"></i>
-              {Math.round(movie.vote_average)}
+              {movie.vote_average.toPrecision(2)}
             </p>
           </div>
         </div>

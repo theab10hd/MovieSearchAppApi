@@ -2,6 +2,7 @@ import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 
 import type { SelectedMovie } from "../types";
+import { useEffect, useState } from "react";
 
 interface Props {
   setIsOpen: (open: boolean) => void;
@@ -10,15 +11,31 @@ interface Props {
 }
 
 const MovieBox = ({ setIsOpen, selectedMovie, setSelectedMovie }: Props) => {
+  const [formattedDate, setFormattedDate] = useState<string>("");
+
+  const convertDateFormat = (date?: string): string => {
+    if (!date) {
+      throw new Error("Date is undefined");
+    }
+
+    const parts = date.split("-");
+    if (parts.length !== 3) {
+      throw new Error("Invalid date format. Expected YYYY-MM-DD");
+    }
+
+    const [year, month, day] = parts;
+    return `${day}-${month}-${year}`;
+  };
+
+  useEffect(() => {
+    if (selectedMovie?.release_date) {
+      setFormattedDate(convertDateFormat(selectedMovie.release_date));
+    }
+  }, [selectedMovie]);
+
   if (!selectedMovie) return null;
 
   useGSAP(() => {
-    gsap.from("#dar-box", {
-      opacity: 0,
-      duration: 0.3,
-      ease: "power3.inOut",
-    });
-
     gsap.from("#box", {
       opacity: 0,
       duration: 0.2,
@@ -74,11 +91,12 @@ const MovieBox = ({ setIsOpen, selectedMovie, setSelectedMovie }: Props) => {
             <div className="text-gray-200 ">
               <p className="text-yellow-400 text-sm md:text-lg">
                 <i className="fa-solid fa-star me-2"></i>
-                {selectedMovie.vote_average} / {selectedMovie.vote_count}
+                {selectedMovie.vote_average.toPrecision(2)} (
+                {selectedMovie.vote_count})
               </p>
               <p className="text-sm md:text-lg">
                 <i className="fa-solid fa-calendar-days me-2 "></i>
-                {selectedMovie.release_date}
+                {formattedDate}
               </p>
               <p className="text-sm md:text-lg">
                 <i className="fa-solid fa-globe me-2"></i>
