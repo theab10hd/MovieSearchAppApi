@@ -20,6 +20,7 @@ const Home = () => {
     try {
       let url: string;
       if (query.trim() === "") {
+        setLoaded(true);
         url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`;
       } else {
         setLoaded(false);
